@@ -4,16 +4,21 @@ import {Products} from './utils/product'
 import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route} from 'react-router-dom'
 import { BikeComponent, Navbar } from "./components";
-import {HomePage, OurBikes, Product, CheckoutPage} from "./pages/";
+import {HomePage, OurBikes, Product, CartPage, Payment} from "./pages/";
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios'
-import 'locomotive-scroll/src/locomotive-scroll.scss'
+import { useStateValue } from "./context/StateProvider";
+import Footer from "./components/Footer";
+import CheckoutPage from "./pages/CheckoutPage";
 
 
 function App() {
-
+  const [{cartItems, userData}, dispatch] = useStateValue();
   const [preloader, setPreloader] = useState(false);
   const[timer, setTimer] = useState(3);
+
+  
+
+  
 
   const id = useRef(null);
 
@@ -45,7 +50,7 @@ function App() {
         ):(
           <div className="App" >
             <Navbar preloader={preloader} />
-              <div className="w-full h-screen" id="smooth-scroll" data-scroll-container>
+              <div className="w-full ">
                 <Routes>
                     <Route path="/" preloader={preloader} element = {<HomePage />} />
                     <Route path="OurBikes" preloader={preloader} element = {<OurBikes/>} />
@@ -54,10 +59,12 @@ function App() {
                       <Route key={product.id} path={product.url} element={<Product product={product} />} />
                       )
                     }
-
-                    {Products && Products.map((product) => <Route key={product.id} path={`${product.url}/checkout`} element={<CheckoutPage product={product} />} />)}
+                    <Route path="/cart" element={<CartPage cartItems={cartItems} userData={userData} dispatch={dispatch} />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
+                    <Route path="/payment" element={<Payment />} />
                 </Routes>
               </div>
+              <Footer/>
           </div>
         )}
     </AnimatePresence>

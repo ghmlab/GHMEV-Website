@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react'
-import {BikeComponent, Features, Hero, HomeCarousel} from '../components'
-import useLocoScroll from "../hooks/useLocoScroll";
+
+import {BikeComponent, Features, Hero} from '../components'
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -12,10 +11,9 @@ const HomePage = ({preloader}) => {
  
   return (
     <>
-      <div className="bg-ghmLight" preloader={preloader} data-scroll-section>
-        <Hero id="heros" className='section' preloader={preloader} data-scroll/>
-        <Features id="featt" className='section' preloader={preloader} data-scroll/>
-        <BikeComponent className='section' preloader={preloader} data-scroll />
+      <div className="bg-ghmLight" preloader={preloader}>
+        <Hero id="heros" className='section' preloader={preloader} />
+        <BikeComponent className='section' preloader={preloader}  />
       </div>
     </>
   )

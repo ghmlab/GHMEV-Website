@@ -1,6 +1,6 @@
 import React from 'react';
-import PostContent from "./PostContent";
-import useLocoScroll from "../hooks/useLocoScroll";
+import PostContent from "../PostContent";
+// import useLocoScroll from "../hooks/useLocoScroll";
 
 
 const Features = ({preloader}) => {

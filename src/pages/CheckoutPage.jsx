@@ -1,104 +1,172 @@
-import React, { useState } from 'react'
-import { ProductSlider } from "../components";
-import {BsPlusLg, BsDashLg, BsCart2, BsArrowRightShort } from 'react-icons/bs'
+import { useState, useCallback } from "react"
+import useRazorpay from "react-razorpay";
+import { OrderComponent } from "../components"
+import logo from '../assets/logoDark.png'
+import { useNavigate } from "react-router-dom";
+import uuid from "react-uuid";
+import { useEffect } from "react";
 
-const CheckoutPage = ({product, key}) => {
-  const[isActive, setIsActive] = useState({
-    colorId: 1,
-    colorTitle: 'Luminous Green'
-  });
 
-  const [cartItem, setCartItem] = useState(0)
+
+const CheckoutPage = () => {
+  const[flag, setFlag] = useState(false)
+  const data = JSON.parse(localStorage.getItem("cartData"))
+  const user = JSON.parse(localStorage.getItem("userData"))
+
+  const cartCount = parseInt(localStorage.getItem("cartCount"))
   
+  const redirect = useNavigate()
 
-  const [filter, setFilter] = useState(product.colors[0].id)
+  // const post = {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(data, uuid()),
+  // };
+  
+  // fetch("https://jsonplaceholder.typicode.com/posts", post)
+  //   .then((data) => {
+  //     if (!data.ok) {
+  //       throw Error(data.status);
+  //     }
+  //     return data.json();
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
+  let subTotal = 0
+ 
+
+const pp=[
+  {
+    "n":data[0]["l"],
+    "c":data[0]["color"],
+    "p":data[0]["discountPrice"],
+    "q":data[0]["quantity"],
+    "ip":data[0]["isPresent"]
+    },
+    {
+      "n":data[1]["title"],
+      "c":data[1]["color"],
+      "p":data[1]["discountPrice"],
+      "q":data[1]["quantity"],
+      "ip":data[1]["isPresent"]
+      },
+      {
+        "n":data[2]["title"],
+        "c":data[2]["color"],
+        "p":data[2]["discountPrice"],
+        "q":data[2]["quantity"],
+        "ip":data[2]["isPresent"]
+      },
+      {
+        "n":data[3]["title"],
+        "c":data[3]["color"],
+        "p":data[3]["discountPrice"],
+        "q":data[3]["quantity"],
+        "ip":data[3]["isPresent"]
+        }
+]
+
+  
+  data.forEach((element, i) => subTotal += (element.discountPrice * element.quantity))
+  let tax = 18/100 * subTotal
+  let grandTotal = subTotal + tax
+ 
+  const Razorpay = useRazorpay();
+
+  const handlePayment = useCallback( async () => {
+
+    const rzpay = new Razorpay({
+      key: "rzp_live_MRCl2l05Qq6vD5",
+      amount: grandTotal*100,
+      currency: "INR",
+      name: "Gear Head Motors",
+      description: "Test Transaction",
+      image: logo,
+      handler: (res) => {
+        console.log(res);
+      },
+      prefill: {
+        name: user.name,
+        email: user.email,
+        contact:user.phone,
+        address: user.address,
+        city:user.city,
+        state:user.state,
+        pinCode:user.pinCode
+      },
+      notes: {
+        notes: JSON.stringify(pp)
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    });
+    rzpay.open();
+  }, [Razorpay]);
+
   return (
-    <div key={key} className="w-full flex md:flex-row flex-col justify-center items-center montserrat relative md:top-[100px] md:px-24">
-      <div className="md:w-[55%] 2xl:w-[35%] bg-no-repeat bg-cover rounded-3xl overflow-hidden flex flex-col gap-5 justify-center items-center py-16 px-6" data-scroll>
-            <ProductSlider data={product?.colors?.filter((color) => color.id === filter)} />
-            <div>
-              <div className="flex flex-col justify-center items-center gap-5" data-scroll>
-                <h2 className="text-lg font-semibold">COLOUR</h2>
-                <div className="flex justify-center items-center gap-6">
-                {product.colors.map((color) => <div key={color.id}><img key={color.id} src={color.image} className={`w-5 cursor-pointer ${isActive.colorId === color.id ? 'color-active' : ''}`} onClick = {() => {setIsActive({colorId: color.id, colorTitle: color.title}); setFilter(color.id)}} alt="" /></div>)}
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex flex-col justify-center items-start gap-4">
-              <div className="flex justify-center items-center gap-4 font-semibold">
-                <h2 className="capitalize text-base md:text-xl">{`${product.title} (${isActive.colorTitle})`}</h2>
-                <div className="flex items-center justify-center gap-3">
-                  <i className="md:p-3 p-2 bg-gray-200 rounded-full cursor-pointer" onClick={() => setCartItem(cartItem - 1)}><BsDashLg size={8} /></i>
-                  <p className="select-none">{cartItem}</p>
-                  <i className="md:p-3 p-2 bg-gray-200 rounded-full cursor-pointer" onClick={() => setCartItem(cartItem + 1)}><BsPlusLg size={8} /></i>
-                </div>
-              </div>
-
-              <div className="text-left">
-                <h2 className="text-xl font-semibold">Rs {product.discountPrice.toLocaleString()}<small className="text-sm font-medium"> (5% inclusive GST)</small></h2>
-                <h2 className="text-base text-gray-400 line-through font-medium">MRP Rs {product.price}</h2>
+    <>
+      {(cartCount > 0) ? (
+        <div className="flex md:flex-row flex-col justify-center items-center bg-ghmGray py-10 md:gap-0 gap-5 mt-[100px]">
+        <div className="flex md:w-1/2 md:flex-col items-center justify-center gap-5">
+          {data && data.map((item) => item.isPresent == true && <OrderComponent key={item.id} item={item} />)}
+        </div>
+        <div className="flex flex-col md:w-[30%] w-[90%] items-center rounded-md text-left justify-center gap-5">
+          <p className="mr-auto">Shipping Info</p>
+          <div className="w-full flex flex-col text-left bg-ghmLight p-5 flex-wrap shadow-lg">
+            <h2 className="text-sm font-semibold">{user.name}</h2>
+            <p className="text-sm text-gray-500">{user.address}, {user.city}, {user.state}, {user.pinCode} </p>
+          </div>
+  
+          <div className="w-full flex flex-col text-left bg-ghmLight p-5 shadow-lg gap-5 flex-wrap">
+            <h2 className="text-lg font-semibold">Billing Summary</h2>
+            <div className="flex flex-col justify-center items-center py-5 gap-4 border-b-2 border-gray-200">
+              <div className=" w-full flex justify-between items-center">
+                <h3 className="text-sm text-gray-500">Subtotal</h3>
+                <h3 className="text-sm text-gray-800">Rs {subTotal.toLocaleString()}</h3>
               </div>
               
-              <div className="w-full flex bg-[#FFD566] py-3 px-4 rounded-xl items-center justify-between font-semibold">
-                <span className="flex items-center justify-center"><BsCart2 className="mx-2" />TOTAL</span>
-                <p>Rs {product.price.toLocaleString()}</p>
+              <div className=" w-full flex justify-between items-center">
+                <h3 className="text-sm text-gray-500">Shipping</h3>
+                <h3 className="text-sm text-gray-800">Rs 0.00</h3>
+              </div>
+  
+              <div className=" w-full flex justify-between items-center">
+                <h3 className="text-sm text-gray-500">Tax</h3>
+                <h3 className="text-sm text-gray-800">{tax}</h3>
               </div>
             </div>
+  
+            <div className=" w-full flex justify-between items-center">
+                <h3 className="text-base text-ghmDark font-semibold">Grand Total</h3>
+                <h3 className="text-sm text-gray-800">{grandTotal.toLocaleString()}</h3>
+            </div>
+  
+            <div className="border-2 border-gray-200">
+              <textarea className="w-full px-5 py-3" name="Comments" placeholder="Type here..." id="" cols="30" rows="2 "></textarea>
+            </div>
+            
+            <div className="flex justify-start items-center gap-3">
+              <input type="checkbox" id="checkbox" name="checkbox" />
+              <label className="text-xs" htmlFor="checkbox">Please check to acknowledge our Privacy & Terms Policy</label>
+            </div>
+  
+            <button onClick={handlePayment} className="w-full bg-ghmGreen rounded-sm p-4 text-white">
+              Pay Rs {grandTotal.toLocaleString()}.00
+            </button>
+          </div>
+        </div>
       </div>
-
-      <div className="md:w-1/2 flex flex-col gap-5 items-center justify-center">
-        <h1 className="text-xl font-semibold">ADD DETAILS TO CHECKOUT</h1>
-        <form className="md:w-1/2  flex flex-col gap-5">
-          <input type="text" className="w-full px-4 py-2  border border-gray-300 rounded-md" placeholder="Full Name"  />
-          <input type="text" className="w-full px-4 py-2  border border-gray-300 rounded-md" placeholder="Email"  />
-          <input type="text" className="w-full px-4 py-2  border border-gray-300 rounded-md" placeholder="Address"  />
-          <input type="text" className="w-full px-4 py-2  border border-gray-300 rounded-md" placeholder="City"  />
-          <select name="state" className="w-full px-4 py-2  border border-gray-300 rounded-md" id="state">
-                <option value="A">State</option>
-                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                <option value="Assam">Assam</option>
-                <option value="Bihar">Bihar</option>
-                <option value="Chandigarh">Chandigarh</option>
-                <option value="Chhattisgarh">Chhattisgarh</option>
-                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
-                <option value="Daman and Diu">Daman and Diu</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Lakshadweep">Lakshadweep</option>
-                <option value="Puducherry">Puducherry</option>
-                <option value="Goa">Goa</option>
-                <option value="Gujarat">Gujarat</option>
-                <option value="Haryana">Haryana</option>
-                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                <option value="Jharkhand">Jharkhand</option>
-                <option value="Karnataka">Karnataka</option>
-                <option value="Kerala">Kerala</option>
-                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                <option value="Maharashtra">Maharashtra</option>
-                <option value="Manipur">Manipur</option>
-                <option value="Meghalaya">Meghalaya</option>
-                <option value="Mizoram">Mizoram</option>
-                <option value="Nagaland">Nagaland</option>
-                <option value="Odisha">Odisha</option>
-                <option value="Punjab">Punjab</option>
-                <option value="Rajasthan">Rajasthan</option>
-                <option value="Sikkim">Sikkim</option>
-                <option value="Tamil Nadu">Tamil Nadu</option>
-                <option value="Telangana">Telangana</option>
-                <option value="Tripura">Tripura</option>
-                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                <option value="Uttarakhand">Uttarakhand</option>
-                <option value="West Bengal">West Bengal</option>
-          </select>
-          <input type="text" className="w-full px-4 py-2   border border-gray-300 rounded-md" placeholder="Pincode"  />
-        </form>
-        <button type="submit" className="w-full md:w-1/2 flex justify-center items-center px-4 py-2 gap-2 bg-[#219653] text-white font-semibold">NEXT <span><BsArrowRightShort color="#ffffff" /></span></button>
-        <div className="h-[100px]"></div>
-      </div>
-    </div>
+      ) : (
+        <div className="flex justify-center items-center h-screen">
+          {redirect('/')}
+        </div>
+      ) }
+    </>
   )
 }
 

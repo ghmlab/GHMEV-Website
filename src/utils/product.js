@@ -10,7 +10,7 @@ iconE11, iconE12, iconE13, iconE14, iconE15, iconE16, iconE17, iconE18, } from '
 
 export const Products = [
     {   
-        id: 1,
+        id: 0,
         url:"model-l",
         title: "MODEL-L",
         desc: "The ultimate electric bike experience! if you live to explore",
@@ -18,6 +18,7 @@ export const Products = [
         mainImage:GreenL,
         discountPrice: 25999,
         price: 27999,
+        quantity: 0,
         design: {
             design1: "Minimalistic Design",
             design2: "Compact Battery (easy to Carry)",
@@ -206,11 +207,16 @@ export const Products = [
                 price:5299
             },
         ],
+        inCart:{
+            cartColor: 'Luminous Green',
+            cartImage: GreenL,
+            cartPrice: 0
+        }
     },
 
 
     {
-        id: 2,
+        id: 1,
         url:"model-i",
         title: "MODEL-I",
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
@@ -218,6 +224,7 @@ export const Products = [
         mainImage:BlackWhiteI,
         discountPrice: 27999,
         price: 29999,
+        quantity: 0,
         design: {
             design1: "Minimalistic Design",
             design2: "Compact Battery (easy to Carry)",
@@ -410,11 +417,16 @@ export const Products = [
                 price:5299
             },
         ],
+        inCart:{
+            cartColor: 'Luminous Green',
+            cartImage: GreenL,
+            cartPrice: 0
+        }
     },
 
 
     {
-        id: 3,
+        id: 2,
         url:"model-f",
         title: "MODEL-F",
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
@@ -422,6 +434,7 @@ export const Products = [
         mainImage:PhoenixF,
         discountPrice: 33999,
         price: 39999,
+        quantity: 0,
         design: {
             design1: "Sturdy Handle bearings",
             design2: "Butter Bearing Pedal System",
@@ -644,10 +657,15 @@ export const Products = [
                 price:5299
             },
         ],
+        inCart:{
+            cartColor: 'Luminous Green',
+            cartImage: GreenL,
+            cartPrice: 0
+        }
     },
 
     {
-        id: 4,
+        id: 3,
         url:"model-e",
         title: "MODEL-E",
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
@@ -655,6 +673,7 @@ export const Products = [
         mainImage:CoalE,
         discountPrice: 37999,
         price: 45999,
+        quantity: 0,
         design: {
             design1: "Sturdy Handle bearings",
             design2: "Butter Bearing Pedal System",
@@ -833,19 +852,6 @@ export const Products = [
             },
             {
                 id: 2,
-                title: "Sunset",
-                image: ColorSunset,
-                cycles:{
-                    images:[
-                        {
-                            id: 1,
-                            image: SunsetE
-                        }
-                    ]
-                }
-            },
-            {
-                id: 3,
                 title: "Dawn",
                 image: ColorDawn,
                 cycles:{
@@ -858,7 +864,7 @@ export const Products = [
                 }
             },
             {
-                id: 4,
+                id: 3,
                 title: "Midnight Black",
                 image: ColorMidnight,
                 cycles:{
@@ -892,5 +898,11 @@ export const Products = [
                 price:5299
             },
         ],
+        inCart:{
+            cartId: 0,
+            cartColor: 'Luminous Green',
+            cartImage: GreenL,
+            cartPrice: 0
+        }
     }
 ]

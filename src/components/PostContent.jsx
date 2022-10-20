@@ -4,7 +4,7 @@ import {motion} from 'framer-motion';
 import { banner } from "./Animations";
 import Image1 from '../assets/image1.jpg'
 
-const PostContent = ({reverse}) => {
+const  PostContent = ({reverse}) => {
   return (
     <>
         <li className={`flex md:flex-row flex-col w-full pb-20`}>

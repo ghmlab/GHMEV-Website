@@ -21,7 +21,7 @@ module.exports = {
       'bgProduct': "url('assets/CarouselBG.png')"
     }
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-  ],
+  // plugins: [
+  //   require('tailwind-scrollbar'),
+  // ],
 }

@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import ModelE from '../assets/E0.png';
-import TyresPath from '../assets/tyres-svg.svg'
-import useLocoScroll from "../hooks/useLocoScroll";
-import Bullet from '../assets/bullet.png'
+import ModelE from '../../assets/E0.png';
+import Bullet from '../../assets/bullet.png'
 import { motion } from 'framer-motion'
-import { BikeComponent as data } from "../utils/data";
-import { element } from "prop-types";
+import { BikeComponent as data } from "../../utils/data";
 
 const BikeComponent = ({preloader}) => {
   const [ content, setContent ] = useState({
@@ -13,25 +10,25 @@ const BikeComponent = ({preloader}) => {
     desc: ''
   })
     // useLocoScroll(!preloader)
-    const banner = {
-      animate: {
-        transition: {
-          delayChildren: 0.4,
-          staggerChildren: 0.1,
-        },
-      },
-    }
+    // const banner = {
+    //   animate: {
+    //     transition: {
+    //       delayChildren: 0.4,
+    //       staggerChildren: 0.1,
+    //     },
+    //   },
+    // }
 
-    const lettering = {
-      hidden: {y: 200},
-      visible:{
-        y: 0,
-      },
-      transition: {
-        ease: [0.6, 0.01, -0.05, 0.95],
-        duration: 1,
-      },
-    }
+    // const lettering = {
+    //   hidden: {y: 200},
+    //   visible:{
+    //     y: 0,
+    //   },
+    //   transition: {
+    //     ease: [0.6, 0.01, -0.05, 0.95],
+    //     duration: 1,
+    //   },
+    // }
 
 
   return (
@@ -114,14 +111,13 @@ const BikeComponent = ({preloader}) => {
           </ul>
 
           <div>
-            <motion.div className="w-full absolute md:top-80 top-60 left-0 flex justify-center"
-            variants={banner} initial='hidden' animate='visible'>
-                <motion.h1
+            <div className="w-full absolute md:top-80 top-60 left-0 flex justify-center">
+                <h1
                   className="md:text-[8.5rem] text-4xl 2xl:text-[12rem] opacity-25"
                   >
                   KNOW YOUR BIKE
-                  </motion.h1>
-            </motion.div>
+                  </h1>
+            </div>
           </div>
         </div>
         
@@ -158,14 +154,13 @@ const BikeComponent = ({preloader}) => {
           
 
           <div>
-            <motion.div className="w-full absolute md:top-80 top-32 left-0 flex justify-center"
-            variants={banner} initial='hidden' animate='visible'>
-                <motion.h1
+            <div className="w-full absolute md:top-80 top-32 left-0 flex justify-center">
+                <h1
                   className="md:text-[8.5rem] text-4xl 2xl:text-[12rem] opacity-25"
                   >
                   KNOW YOUR BIKE
-                  </motion.h1>
-            </motion.div>
+                  </h1>
+            </div>
           </div>
         </div>  
     </>

@@ -1,29 +1,29 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/scss';
-import { Pagination, Mousewheel, Navigation } from "swiper";
+import { Pagination, Navigation } from "swiper";
 import "swiper/scss/pagination";
 import "swiper/scss/mousewheel";
 import "swiper/scss/navigation"
-import useLocoScroll from "../hooks/useLocoScroll";
+// import useLocoScroll from "../hooks/useLocoScroll";
 import ModelL from '../assets/L1.png';
 import EMIBox from '../assets/emi.png'
-import { Range, ColorGreen, ColorLight, ColorBW, ColorOrange } from "../assets/index";
+import { ColorGreen, ColorLight, ColorBW, ColorOrange } from "../assets/index";
 import CarouselBG from '../assets/CarouselBG.png'
 
 const Models = ({preloader}, product) => {
   // useLocoScroll(!preloader)
   return (
     <>
-    <div className="bg-ghmLight" data-scroll-section>
-      <div className="flex justify-center items-center flex-col overflow-hidden" data-scroll>
+    <div className="bg-ghmLight">
+      <div className="flex justify-center items-center flex-col overflow-hidden" >
         <img src={ModelL} alt="" />
         <div className="w-full h-[300px] bg-[#E3E3E3] absolute flex top-48 -z-10">
           <p className="text-9xl font-bold text-outline mt-auto text-white">MODEL-L</p>
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-center gap-24 px-16" data-scroll>
+      <div className="w-full flex justify-center items-center gap-24 px-16" >
         <div className="w-[25%] flex flex-col justify-center items-center gap-10">
           <ul className="flex flex-col justify-center items-center gap-10">
             <li>

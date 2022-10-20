@@ -3,11 +3,9 @@ import ModelI from '../assets/I2.png';
 import ModelF from '../assets/F8.png';
 import ModelE from '../assets/E0.png';
 
-import { ColorBW, ColorGreen, ColorOrange, ColorLight } from "../assets";
 
 import FeatureImg1 from '../assets/image1.jpg';
 import FeatureImg2 from '../assets/image2.jpg'
-import FeatureImg3 from '../assets/image3.jpg'
 
 export const models = [
     {

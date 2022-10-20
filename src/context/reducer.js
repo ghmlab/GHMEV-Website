@@ -1,9 +1,7 @@
 export const actionType = {
     SET_NAV_OPEN : 'SET_NAV_OPEN',
-    ADD_TO_CART: 'ADD_TO_CART',
-    REMOVE_FROM_CART: 'REMOVE_FROM_CART',
-    ADD_QUANTITY: 'ADD_QUANTITY',
-    SUB_QUANTITY: 'SUB_QUANTITY'
+    SET_CARTITEMS: "SET_CARTITEMS",
+    SET_USERDATA: "SET_USERDATA" 
 }
 
 const reducer = (state, action) => {
@@ -11,6 +9,14 @@ const reducer = (state, action) => {
         case actionType.SET_NAV_OPEN:
             return{
                 ...state, navOpen: action.navOpen
+            };  
+        case actionType.SET_CARTITEMS:
+            return{
+                ...state, cartItems: action.cartItems
+            };
+        case actionType.SET_USERDATA:
+            return{
+                ...state, userData: action.userData
             };
         default: return state;
     }

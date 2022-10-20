@@ -12,7 +12,7 @@ import useLocoScroll from "../hooks/useLocoScroll";
 const Product = () => {
     useLocoScroll()
   return (
-    <div className="w-full flex flex-col md:flex-row 2xl:px-32 md:px-12 px-3 bg-ghmLight h-screen overflow-hidden" data-scroll-section>
+    <div className="w-full flex flex-col md:flex-row 2xl:px-32 md:px-12 px-3 bg-ghmLight h-screen overflow-hidden">
         <div className="w-full md:w-3/4 py-16 pt-40 md:pt-15 flex justify-center items-center relative md:h-screen">
             <h1 className="2xl:text-9xl md:text-8xl text-4xl font-extrabold text-gray-300 absolute">MODEL-L</h1>
             <Swiper modules={[Navigation, Pagination]} navigation = {true} pagination>

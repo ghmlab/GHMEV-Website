@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/scss';
-import { Pagination, Mousewheel, Navigation } from "swiper";
+import { Pagination, Navigation } from "swiper";
 import "swiper/scss/pagination";
 import "swiper/scss/mousewheel";
 import "swiper/scss/navigation"

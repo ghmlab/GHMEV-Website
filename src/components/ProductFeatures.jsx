@@ -1,8 +1,7 @@
 import React from 'react'
-import useLocoScroll from "../hooks/useLocoScroll"
+// import useLocoScroll from "../hooks/useLocoScroll"
 
 const  ProductFeatures = ({preloader, product}) => {
-  console.log('feihfifif',product[0].images)
 
   // useLocoScroll(!preloader)
   return (

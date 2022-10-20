@@ -6,7 +6,7 @@ import {models} from '../utils/data'
 const OurBikes = () => {
   useLocoScroll()
   return (
-    <div className="bg-ghmLight w-full h-screen text-ghmDark px-10 py-28 md:py-40 md:px-32 flex flex-col gap-14 justify-start items-start" data-scroll-section>
+    <div className="bg-ghmLight w-full h-screen text-ghmDark px-10 py-28 md:py-40 md:px-32 flex flex-col gap-14 justify-start items-start" >
         <h1>Our Bikes</h1>
         
         <div className="flex flex-col md:flex-row w-full justify-center gap-10 md:text-xs 2xl:text-base" >

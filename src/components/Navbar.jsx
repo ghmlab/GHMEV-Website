@@ -9,7 +9,7 @@ import Close from '../assets/close.png'
 import { actionType } from '../context/reducer';
 import { useStateValue } from '../context/StateProvider'
 import NavMobile from "./NavMobile";
-import useLocoScroll from "../hooks/useLocoScroll"
+// import useLocoScroll from "../hooks/useLocoScroll"
 
 
 const Navbar = ({preloader, ref}) => {
@@ -26,8 +26,8 @@ const Navbar = ({preloader, ref}) => {
 
 
 
-  const [{ navOpen }, dispatch] = useStateValue()
-
+  const [{ navOpen, cartItems }, dispatch] = useStateValue()
+  const cart = 0
   useEffect(() => {
     const handleScroll = event => {
       console.log('scrolled', window.scrollY)
@@ -61,8 +61,11 @@ const Navbar = ({preloader, ref}) => {
         </ul>
         <ul className="text-ghmDark flex justify-between items-center gap-5 text-sm">
           <li className="hover:text-ghmGreen transition all ease-in-out duration-200">ABOUT</li>
-          <li className="hover:text-ghmGreen transition all ease-in-out duration-200">
-            <Link to="/OurBikes">OUR BIKES</Link>
+          <li className="hover:text-ghmGreen transition all ease-in-out duration-200 flex gap-1 justify-center items-center">
+            <Link to="/cart">CART</Link>
+            {/* {cartItems && cartItems.length > 0 && (
+              <p className="w-[10px] h-[10px] p-3 flex items-center justify-center bg-black text-ghmGreen rounded-full">{cart}</p>
+            )} */}
           </li>
         </ul>
         </div>
@@ -79,8 +82,11 @@ const Navbar = ({preloader, ref}) => {
           </ul>
           <ul className="text-white flex justify-between items-center gap-5 text-sm">
             <li className="hover:text-ghmGreen transition all ease-in-out duration-200">ABOUT</li>
-            <li className="hover:text-ghmGreen transition all ease-in-out duration-200">
-              <Link to="/OurBikes">OUR BIKES</Link>
+            <li className="hover:text-ghmGreen transition all ease-in-out duration-200 flex gap-1 justify-center items-center">
+              <Link to="/cart">CART</Link>
+              {cartItems && cartItems.length > 0 && (
+              <p className="w-[10px] h-[10px] p-3 flex items-center justify-center bg-black text-ghmGreen rounded-full">{cartItems.length}</p>
+              )}
             </li>
           </ul>
         </div>
